@@ -3,7 +3,7 @@
 //Connect to database using procedural way
 function connect(){
     try{
-        $conn = mysqli_connect("localhost", "root", "pr@ch1Patel", "restaurant");
+        $conn = mysqli_connect("localhost", "root", "", "restaurant");
         if(!$conn){
             die("<p class=\"error\">Error: Connection to Server Failed </p>".mysqli_connect_error());
         }
