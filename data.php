@@ -478,9 +478,9 @@ function viewOrdersInClient(){
                 $_SESSION["OrderTime"] = $row['OrderDateTime'];
                 $_SESSION["PickTime"] = $row['PickUpTime'];
                 $_SESSION["Pay"] = $row['Payment Method'];
-                echo "<div class='orderSect'><div><div><p><span>Order Reference No.: &nbsp;&nbsp;</span>" .$_SESSION["OrderId"]. "</p><p><span>Order Date: &nbsp;&nbsp;</span>" .$_SESSION["OrderTime"]. "</p><p>";
+                echo "<div class='orderSect'><div><div><p><span>Order Reference No.: &nbsp;&nbsp;</span>" .$_SESSION["OrderId"]. "</p><p><span>Order Date: &nbsp;&nbsp;</span>" .$_SESSION["OrderTime"]. "</p>";
                 getRespectiveOrderItem($_SESSION['OrderId'], $_SESSION['UserId'], "image");
-                echo "</p><p><span>Total: &nbsp;&nbsp;</span>Ksh. ".$_SESSION["Total"]. ".00</p><p><span>Payment Method: &nbsp;&nbsp;</span>" .$_SESSION["Pay"]. "</p><p><span>Pickup Time: &nbsp;&nbsp;</span>" .$_SESSION["PickTime"]. "</p></div></div></div>";
+                echo "<p><span>Total: &nbsp;&nbsp;</span>Ksh. ".$_SESSION["Total"]. ".00</p><p><span>Payment Method: &nbsp;&nbsp;</span>" .$_SESSION["Pay"]. "</p><p><span>Pickup Time: &nbsp;&nbsp;</span>" .$_SESSION["PickTime"]. "</p></div></div></div>";
             }  
         }  
     }
@@ -520,12 +520,14 @@ function viewOrdersInAdmin(){
 function getRespectiveOrderItem($orderId, $userId, $image){
     $conn = connect();
     $query = 'SELECT OrderItemsIds FROM orders JOIN users WHERE orders.OrderId = '. $orderId. ' AND orders.UserId = ' .$userId;
+    print $query;
     $result = mysqli_query($conn, $query) or die($conn->error);
     if($result -> num_rows > 0){
         while($row = $result->fetch_assoc()){
             $orderItems = explode(",", $row['OrderItemsIds']);
             foreach($orderItems as $orderItem){
                 $query = 'SELECT MenuName, MenuImage, order_items.Quantity, order_items.Total FROM menu_items JOIN order_items WHERE menu_items.MenuId = order_items.MenuId AND order_items.OrderItemId ='. $orderItem;
+                print $query;
                 $result = mysqli_query($conn, $query) or die($conn->error);
                 if($result -> num_rows > 0){
                     while($row = $result->fetch_assoc()){
