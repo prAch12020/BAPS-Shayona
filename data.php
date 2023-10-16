@@ -520,16 +520,13 @@ function viewOrdersInAdmin(){
 function getRespectiveOrderItem($orderId, $userId, $image){
     $conn = connect();
     $query = 'SELECT OrderItemsIds FROM orders JOIN users WHERE orders.OrderId = '. $orderId. ' AND orders.UserId = ' .$userId;
-    print $query;
     $result = mysqli_query($conn, $query) or die($conn->error);
     if($result -> num_rows > 0){
         while($row = $result->fetch_assoc()){
             $orderItems = explode(",", $row['OrderItemsIds']);
-            print $row['OrderItemsIds'];
             foreach($orderItems as $orderItem){
                 print "Order Item no. ". $orderItem;
                 $query = 'SELECT MenuName, MenuImage, order_items.Quantity, order_items.Total FROM menu_items JOIN order_items WHERE menu_items.MenuId = order_items.MenuId AND order_items.OrderItemId ='. $orderItem;
-                print $query;
                 $result = mysqli_query($conn, $query) or die($conn->error);
                 if($result -> num_rows > 0){
                     while($row = $result->fetch_assoc()){
