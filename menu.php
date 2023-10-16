@@ -19,7 +19,7 @@
             </form>
             <?php if(isset($_POST['search'])){ searchMenu(); } else{?>
         </div>
-        <div class="div_img">
+        <div class="div_img" style="position:absolute;">
             <img class="mand" src="images/mand.png" width="100%">
         </div>
         <div class="menu-items">
